@@ -1,0 +1,36 @@
+/* The shape every card in the hand shares: playing-card proportions (300 x 370,
+   like the reference), rounded corners and a resting shadow. A card element
+   gets two classes, this one plus its own look (PlayingCard / CardBack). They
+   never set the same property, so it doesn't matter which CSS loads first. */
+.face {
+  position: relative; /* anchors the ::after shadow below */
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* the hand decides how wide a card is */
+  aspect-ratio: 300 / 370;
+  border-radius: 1.25rem;
+  box-shadow:
+    0 1px 2px rgb(var(--shadow-rgb) / 0.14),
+    0 14px 28px -16px rgb(var(--shadow-rgb) / 0.5);
+}
+
+/* The bigger "pulled out of the hand" shadow already exists, just invisible.
+   Animating box-shadow itself is slow; fading a ready-made one in with opacity
+   is nearly free. (An outer box-shadow is only drawn outside the box, so this
+   layer never covers the card's own content.) */
+.face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: 0 30px 48px -20px rgb(var(--shadow-rgb) / 0.6);
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+/* The hand marks the pulled card's slot with data-active="true".
+   (Attribute selectors aren't renamed by CSS Modules, only class names are.) */
+[data-active='true'] .face::after {
+  opacity: 1;
+}

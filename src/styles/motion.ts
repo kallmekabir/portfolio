@@ -8,5 +8,6 @@ import type { SpringOptions } from 'motion/react';
 // - damping:   how quickly the bouncing dies out (lower = more wobble)
 // - mass:      how heavy the thing feels (higher = slower to start and stop)
 
-// Project cards following the scroll position: smooth, with no wobble.
-export const dealSpring: SpringOptions = { stiffness: 140, damping: 24, mass: 0.6 };
+// A card pulled up out of the hand (hover / focus) and dropped back in: quick,
+// with a small lively overshoot (about 8%) that settles at once. Not bouncy.
+export const liftSpring: SpringOptions = { stiffness: 320, damping: 20, mass: 0.8 };
