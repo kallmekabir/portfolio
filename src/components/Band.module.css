@@ -1,0 +1,114 @@
+/*
+  Three layers, stacked with z-index:
+    0  .light        the drifting lamp light
+    1  .band::after  the fade from green into the page background
+    2  .inner        the actual content
+  `isolation: isolate` keeps those z-indexes contained inside the band.
+*/
+.band {
+  position: relative;
+  isolation: isolate;
+  overflow: clip; /* the big light circles must never cause sideways scrolling */
+  background: var(--band-bg);
+  color: var(--band-text);
+  --color-focus: var(--band-accent); /* a green focus ring would vanish on green */
+}
+
+/* Plain links in the band take the band's text color (green links would vanish on green).
+   :not([class]) skips links that have their own class, like the hero buttons. */
+.band a:not([class]) {
+  color: inherit;
+}
+
+.tall {
+  --fade: 160px;
+}
+.short {
+  --fade: 96px;
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  padding-bottom: var(--fade); /* keep text out of the fade so it stays readable */
+}
+.tall .inner {
+  padding-top: clamp(var(--space-8), 7vw, 5.5rem);
+}
+.short .inner {
+  padding-top: var(--space-8);
+}
+
+/* ---- The lamp light: two soft circles drifting very slowly ---- */
+.light {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* Fade the light in from the top edge, so there's no visible seam under the header */
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 30%);
+  mask-image: linear-gradient(to bottom, transparent, #000 30%);
+}
+
+.light::before,
+.light::after {
+  content: '';
+  position: absolute;
+  width: 75vmax;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  /* Only `transform` animates: the browser can move it on the GPU without
+     recalculating the layout, so it stays smooth and cheap. */
+  animation: drift 28s var(--ease-in-out) infinite alternate;
+}
+
+/* Kept faint on purpose: even where both lights overlap, band text stays above 4.5:1 contrast */
+.light::before {
+  left: -20vmax;
+  top: -15vmax;
+  background: radial-gradient(closest-side, rgb(var(--band-glow-rgb) / 0.07), transparent);
+}
+
+.light::after {
+  right: -30vmax;
+  top: 5%;
+  background: radial-gradient(closest-side, rgb(var(--band-glow-2-rgb) / 0.05), transparent);
+  animation-duration: 36s;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(14vmax, 8vmax, 0) scale(1.12);
+  }
+}
+
+/* ---- The fade from green into the page ----
+   Several stops instead of two make it ease out gently rather than look like a hard stripe. */
+.band::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 1;
+  height: var(--fade);
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--color-bg) 15%, transparent) 30%,
+    color-mix(in srgb, var(--color-bg) 50%, transparent) 60%,
+    color-mix(in srgb, var(--color-bg) 85%, transparent) 85%,
+    var(--color-bg) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .light::before,
+  .light::after {
+    animation: none;
+  }
+}

@@ -9,37 +9,62 @@
 
 .skip {
   position: absolute;
+  z-index: 10;
   left: var(--space-4);
   top: -100px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--band-accent);
+  color: var(--band-on-accent);
+  font-weight: 600;
 }
 .skip:focus {
   top: var(--space-4);
 }
 
-.header,
-.main,
-.footer {
-  width: 100%;
-  max-width: var(--content-max);
-  margin-inline: auto;
-  padding-inline: var(--space-4);
+/* ---------- Header: sits on the green band ---------- */
+.header {
+  background: var(--band-bg);
+  color: var(--band-text);
+  --color-focus: var(--band-accent); /* green-on-green focus rings would be invisible */
 }
 
-.header {
+.headerInner {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* on a phone, the nav drops below the name instead of squeezing */
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-4);
-  padding-block: var(--space-6);
+  gap: var(--space-3) var(--space-6);
+  padding-block: var(--space-6) var(--space-2);
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
   font-family: var(--font-display);
-  font-size: var(--text-lg);
-  font-weight: 600;
-  color: var(--color-text);
+  font-weight: 800;
+  font-size: 1.7rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--band-text);
   text-decoration: none;
+}
+
+/* A tiny 2x2 chessboard as the logo: a conic gradient paints the four squares */
+.mark {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  border-radius: 4px;
+  background: repeating-conic-gradient(var(--band-accent) 0 25%, var(--band-text) 0 50%) 0 0 / 100% 100%;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-6);
 }
 
 .nav {
@@ -51,25 +76,41 @@
 }
 
 .nav a {
-  color: var(--color-text-muted);
+  display: inline-block;
+  padding-block: var(--space-1);
+  color: var(--band-text-muted);
+  font-weight: 500;
   text-decoration: none;
+  /* A transparent border keeps the text from shifting when the active state adds a visible one */
+  border-bottom: 2px solid transparent;
+}
+
+.nav a:hover {
+  color: var(--band-text);
 }
 
 /* NavLink adds the class "active" to the link for the current page */
 .nav a:global(.active) {
-  color: var(--color-text);
-  text-decoration: underline;
-  text-underline-offset: 6px;
+  color: var(--band-text);
+  border-bottom-color: var(--band-accent);
 }
 
+/* ---------- Main ---------- */
 .main {
   flex: 1;
-  padding-block: var(--space-8) var(--space-16);
 }
 
+/* ---------- Footer ---------- */
+/* TODO(you): style the footer using tokens from tokens.css. Use the header above as
+   your reference. Ideas: muted text color, a top border, links that change color on
+   hover, and spacing from the --space-* scale. Check it at 375px wide and in dark mode. */
 .footer {
+  margin-top: var(--space-16);
+  border-top: 1px solid var(--color-border);
+}
+
+.footerInner {
   display: flex;
   gap: var(--space-6);
   padding-block: var(--space-8);
-  border-top: 1px solid var(--color-border);
 }
