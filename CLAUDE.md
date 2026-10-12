@@ -26,6 +26,13 @@ Java projects → WebAssembly via TeaVM (CheerpJ for unmodified Swing apps), in 
 - `npm run lint`: oxlint
 - `npm run preview`: serve the production build locally
 
+## Workflow (git → Vercel)
+- Never commit straight to `main`. One branch per task: `m1-design-system`, `feat/<thing>`, `fix/<thing>`.
+- Before pushing: `npm run build && npm run lint` must pass.
+- Open a PR with `gh pr create`. Vercel comments a preview URL on it (open it while logged in to Vercel).
+- Merging to `main` deploys to production: https://portfolio-three-puce-6z3d451k5e.vercel.app
+- Vercel project: `portfolio` (`prj_sE2lPiop6nOu0PBrU8CsrRHXXkH4`). The custom domain (`kabirkhan.app`, not yet registered) is planned for M6.
+
 ## Design
 Warm & personal feel. Motion: calm overall, plus one signature moment (project card → full-screen stage) and expressive animation on the About page. Use the `frontend-design` and `ui-ux-pro-max` skills for design work.
 
