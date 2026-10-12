@@ -100,17 +100,69 @@
   flex: 1;
 }
 
-/* ---------- Footer ---------- */
-/* TODO(you): style the footer using tokens from tokens.css. Use the header above as
-   your reference. Ideas: muted text color, a top border, links that change color on
-   hover, and spacing from the --space-* scale. Check it at 375px wide and in dark mode. */
+/* ---------- Footer: quiet on purpose, so it never competes with the page ---------- */
 .footer {
   margin-top: var(--space-16);
   border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
 }
 
+/* Copyright on the left, links on the right */
 .footerInner {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-6);
+  padding-block: var(--space-6);
+}
+
+.copyright {
+  margin: 0; /* global.css gives every <p> a bottom margin, which would unbalance the row */
+}
+
+.footerLinks {
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--space-6);
-  padding-block: var(--space-8);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footerLinks a {
+  /* 44px tall: a comfortable tap target, without making the footer look any bigger */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* Hover changes color only, instantly: no animation needed for something this small */
+.footerLinks a:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* On phones: stack the copyright above the links, both lined up on the left */
+@media (max-width: 560px) {
+  .footerInner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    padding-block: var(--space-4);
+  }
+}
+
+/* ---------- Lenis ---------- */
+/* Lenis adds the class "lenis" to <html> while it runs. It then animates every
+   in-page scroll itself, so the browser's own smooth scrolling (switched on in
+   global.css for when Lenis is off) would only fight it. :global() reaches outside
+   this module, because <html> isn't part of any component. */
+:global(html.lenis) {
+  scroll-behavior: auto;
 }

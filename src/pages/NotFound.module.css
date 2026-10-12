@@ -1,0 +1,27 @@
+.message {
+  margin-bottom: var(--space-6);
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+}
+
+/* The same pill as Resume's primary button. (If more pages need buttons,
+   these rules could move into one shared Button component.) */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px; /* comfortable tap target */
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+@media (hover: hover) {
+  .button:hover {
+    transform: translateY(-2px);
+  }
+}

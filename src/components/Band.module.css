@@ -39,6 +39,14 @@
   padding-top: var(--space-8);
 }
 
+/* Page titles on the inner pages (the homepage hero sizes its own name).
+   clamp(min, preferred, max): grows with the screen width, within limits. */
+.short h1 {
+  margin: 0;
+  font-size: clamp(2.75rem, 8vw, 4.5rem);
+  line-height: 0.95;
+}
+
 /* ---- The lamp light: two soft circles drifting very slowly ---- */
 .light {
   position: absolute;

@@ -1,7 +1,7 @@
 import Band from '../components/Band';
+import styles from './About.module.css';
 
 // M2 fills this from src/content/about.ts; M5 adds the signature animation.
-// TODO(you): style the sections below the band (spacing, headings) with a CSS Module.
 export default function About() {
   return (
     <article>
@@ -9,17 +9,23 @@ export default function About() {
         <h1 id="about-heading">About me</h1>
       </Band>
       <div className="container">
-        <section aria-labelledby="interests">
-          <h2 id="interests">Interests</h2>
-          <p>Coming soon.</p>
+        <section className={styles.section} aria-labelledby="interests">
+          <h2 id="interests" className={styles.heading}>Interests</h2>
+          <div className={styles.body}>
+            <p className={styles.placeholder}>Coming soon.</p>
+          </div>
         </section>
-        <section aria-labelledby="hobbies">
-          <h2 id="hobbies">Hobbies</h2>
-          <p>Coming soon.</p>
+        <section className={styles.section} aria-labelledby="hobbies">
+          <h2 id="hobbies" className={styles.heading}>Hobbies</h2>
+          <div className={styles.body}>
+            <p className={styles.placeholder}>Coming soon.</p>
+          </div>
         </section>
-        <section aria-labelledby="travel">
-          <h2 id="travel">Places I've been</h2>
-          <p>Coming soon.</p>
+        <section className={styles.section} aria-labelledby="travel">
+          <h2 id="travel" className={styles.heading}>Places I've been</h2>
+          <div className={styles.body}>
+            <p className={styles.placeholder}>Coming soon.</p>
+          </div>
         </section>
       </div>
     </article>
