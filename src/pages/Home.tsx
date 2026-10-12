@@ -17,7 +17,11 @@ export default function Home() {
             <div className={styles.ctas}>
               <a className={styles.primary} href="#projects">View projects</a>
               <Link className={styles.secondary} to="/resume">Resume</Link>
-              <a className={styles.quiet} href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+              {/* links.ts uses '' for "not added yet". An empty string is falsy, so
+                  `&&` stops there and React renders nothing instead of a dead link. */}
+              {profile.linkedin && (
+                <a className={styles.quiet} href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+              )}
             </div>
           </div>
           <aside className={styles.now} aria-labelledby="now-heading">
@@ -32,7 +36,13 @@ export default function Home() {
 
       <section id="projects" className={`container ${styles.projects}`} aria-labelledby="projects-heading">
         <h2 id="projects-heading" className={styles.projectsHeading}>Projects</h2>
-        <ProjectHand projects={projects} />
+        <p className={styles.projectsIntro}>
+          Pick a card, any card. Each one opens a project you can play or try out in your browser.
+        </p>
+        {/* The wrapper only centers the hand and gives it room; the hand sizes itself. */}
+        <div className={styles.handArea}>
+          <ProjectHand projects={projects} />
+        </div>
       </section>
     </>
   );

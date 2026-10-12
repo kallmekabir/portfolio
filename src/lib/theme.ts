@@ -7,13 +7,25 @@ export type Theme = 'system' | 'light' | 'dark';
 
 export const THEME_STORAGE_KEY = 'theme'; // must match the inline script in index.html
 
-// TODO(you): return the theme that comes after `current`, cycling
-//   'system' → 'light' → 'dark' → 'system' → ...
-// Any approach works: a switch statement (like Java's), a ternary chain, or an
-// array plus the % operator. Right now it returns `current`, so the theme
-// button does nothing yet. Replace the line below with your version.
+// The theme a click switches to: 'system' → 'light' → 'dark' → 'system' → ...
+// Reads like a Java switch over an enum, with one bonus: TypeScript checks that
+// every member of the Theme union has a case (see `default` below).
 export function nextTheme(current: Theme): Theme {
-  return current;
+  switch (current) {
+    case 'system':
+      return 'light';
+    case 'light':
+      return 'dark';
+    case 'dark':
+      return 'system';
+    default: {
+      // Every case above returns, so TypeScript narrows `current` to `never` here:
+      // no value can reach this line. If a new theme is added to the Theme type
+      // without a case, `current` is no longer `never` and this line stops compiling.
+      const exhaustiveCheck: never = current;
+      return exhaustiveCheck;
+    }
+  }
 }
 
 export function readSavedTheme(): Theme {

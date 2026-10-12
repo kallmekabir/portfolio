@@ -114,59 +114,40 @@
   font-size: 0.95rem;
 }
 
-/* ---------- Projects shelf ---------- */
+/* ---------- Projects: the hand of cards ---------- */
 .projects {
-  display: grid;
-  gap: clamp(2.5rem, 7vw, 4.5rem);
   padding-top: var(--space-8);
   scroll-margin-top: var(--space-4); /* a little breathing room when "View projects" scrolls here */
-  overflow-x: clip; /* tilted cards near the edge must never make the page scroll sideways */
+  /* Tilted cards near the edge must never make the page scroll sideways.
+     `clip` (unlike `hidden`) cuts off only the x direction, so a card lifted
+     upward out of the hand still shows in full. */
+  overflow-x: clip;
 }
 
 .projectsHeading {
-  margin: 0;
+  margin: 0 0 var(--space-3);
   font-size: clamp(2.4rem, 6vw, 3.4rem);
 }
 
-/* Category name on the left, its cards on the right */
-.group {
-  display: grid;
-  grid-template-columns: 12rem minmax(0, 1fr);
-  gap: var(--space-4) var(--space-12);
-  align-items: start;
-}
-
-.groupHeading {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
+.projectsIntro {
   margin: 0;
-  font-size: 1.9rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+  text-wrap: pretty; /* avoids a lonely last word on its own line */
 }
 
-/* A small square in the category's color */
-.groupHeading::before {
-  content: '';
-  width: 12px;
-  height: 12px;
-  flex: none;
-  border-radius: 3px;
-  background: var(--cat, var(--color-accent));
-}
-
-/* auto-fill (not auto-fit) keeps a lone card at normal width instead of stretching it */
-.grid {
+/* Centers the hand under the intro. The padding is the hand's breathing room,
+   and the top part also leaves space for a card pulled up on hover.
+   The hand sets its own width and height, so nothing here sizes it. */
+.handArea {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-  gap: var(--space-8) var(--space-6);
+  justify-items: center;
+  padding-block: clamp(var(--space-12), 8vw, var(--space-16));
 }
 
 @media (max-width: 760px) {
   .hero {
     grid-template-columns: 1fr;
     align-items: start;
-  }
-  .group {
-    grid-template-columns: 1fr;
   }
 }
