@@ -1,15 +1,11 @@
 import { Link } from 'react-router';
 import Band from '../components/Band';
-import ProjectCard from '../components/ProjectCard';
+import ProjectHand from '../components/hand/ProjectHand';
 import { profile } from '../content/links';
-import { groupByCategory, projects } from '../projects/registry';
+import { projects } from '../projects/registry';
 import styles from './Home.module.css';
 
 export default function Home() {
-  // [...map] turns a Map into an array of [key, value] pairs we can .map() over in JSX
-  const groups = [...groupByCategory(projects)];
-  let cardIndex = 0; // counts cards across all groups, so tilt directions keep alternating
-
   return (
     <>
       <Band size="tall" labelledBy="hero-name">
@@ -36,16 +32,7 @@ export default function Home() {
 
       <section id="projects" className={`container ${styles.projects}`} aria-labelledby="projects-heading">
         <h2 id="projects-heading" className={styles.projectsHeading}>Projects</h2>
-        {groups.map(([category, items]) => (
-          <div key={category} className={styles.group} data-category={category.toLowerCase()}>
-            <h3 className={styles.groupHeading}>{category}</h3>
-            <div className={styles.grid}>
-              {items.map((project) => (
-                <ProjectCard key={project.slug} project={project} index={cardIndex++} />
-              ))}
-            </div>
-          </div>
-        ))}
+        <ProjectHand projects={projects} />
       </section>
     </>
   );

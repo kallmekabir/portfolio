@@ -6,6 +6,7 @@ Personal portfolio whose centerpiece is **interactive, playable projects**, plus
 - Kabir is **learning**: strong in Java (through DSA), knows HTML/CSS/JS basics, new to React/TS.
 - Explain the *why* of new concepts briefly, and relate them to Java when it helps.
 - Ask at the start of a task which mode Kabir wants: **Explain-first**, **You drive** (hints + review), or **Pair** (leave `TODO(you)` sections).
+- **Current mode (M1 fast track): Claude drives.** Kabir wants a working prototype deployed quickly, so write everything (no `TODO(you)` hand-offs), but keep annotating key lines so the code stays readable for learning.
 - Keep it simple: no new dependencies or features without asking.
 - After each milestone, offer a short quiz and remind Kabir to update `LEARNING.md`.
 
@@ -40,7 +41,8 @@ Java projects → WebAssembly via TeaVM (CheerpJ for unmodified Swing apps), in 
 Theme **"Evergreen" (Game Night, professional first)**: felt green + brass, light and dark. A portfolio first, so the layout is clean and recruiter-friendly; the game feel comes through color, game-box project cards and motion.
 - Every page opens on a deep green band with slow drifting "lamp" light that fades into the page background.
 - Fonts (self-hosted in `public/fonts/`): Big Shoulders Display for the name, section titles and card titles only; Figtree for everything else.
-- Project cards are game boxes with a colored lid in the category's color. As you scroll they're "dealt onto the table" (alternating ±5–6° tilt, flat in the middle of the screen, reverses when scrolling up). On hover/focus the lid lifts with a spring overshoot.
+- Projects are a **hand of playing cards** (`src/components/hand/`), modeled on Eduard Bodak's "Service Cards" (eduardbodak.com, Dribbble shot 25366538). Each card is in its category's color, with the title and a pixel icon at the top, mirrored at the bottom like a real playing card. When the section scrolls into view, a stacked deck fans out into an arc (about 950 ms, `cubic-bezier(.5,.6,0,1)`). Hover or focus pulls a card up out of the hand. On phones the deck deals into a column. A face-down "Next project" card is the last card. Spin, flip and sprite effects from the reference were deliberately skipped.
+- Smooth scrolling via Lenis (off when reduced motion is on).
 - Theme toggle in the nav cycles system → light → dark and remembers the choice. An inline script in `index.html` prevents a flash of the wrong theme.
 - Kabir wants the light theme to feel more flowing. Revisit the palette later (other schemes were prototyped: Harbor, Aubergine, Walnut).
 Use the `frontend-design` and `ui-ux-pro-max` skills for design work.
