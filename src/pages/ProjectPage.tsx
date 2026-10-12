@@ -3,9 +3,9 @@ import { Link, useParams } from 'react-router';
 import Band from '../components/Band';
 import { findProject } from '../projects/registry';
 import NotFound from './NotFound';
+import styles from './ProjectPage.module.css';
 
 // M3 turns this into the full-screen "stage" that a card expands into.
-// TODO(you): style the content below the band with a CSS Module.
 export default function ProjectPage() {
   const { slug } = useParams(); // reads :slug from the URL /projects/:slug
   const project = findProject(slug);
@@ -19,18 +19,30 @@ export default function ProjectPage() {
   return (
     <article>
       <Band labelledBy="project-heading">
-        <p><Link to="/">← All projects</Link></p>
-        <h1 id="project-heading">{project.title}</h1>
-        <p>{project.summary}</p>
+        <div className={styles.intro}>
+          <Link className={styles.back} to="/">
+            <span className={styles.arrow} aria-hidden="true">←</span>
+            All projects
+          </Link>
+          <h1 id="project-heading">{project.title}</h1>
+          <p className={styles.summary}>{project.summary}</p>
+        </div>
       </Band>
       <div className="container">
         {Component ? (
-          // Suspense shows the fallback while the project's JS downloads
-          <Suspense fallback={<p>Loading project…</p>}>
-            <Component />
-          </Suspense>
+          // The "stage": a framed area the project plays in
+          <div className={styles.stage}>
+            {/* Suspense shows the fallback while the project's JS downloads */}
+            <Suspense fallback={<p className={styles.loading}>Loading project…</p>}>
+              <Component />
+            </Suspense>
+          </div>
         ) : (
-          <p>Coming soon. This one is still being built.</p>
+          <div className={`${styles.stage} ${styles.empty}`}>
+            <span className={styles.board} aria-hidden="true" />
+            <p className={styles.soonTitle}>Coming soon.</p>
+            <p className={styles.soonText}>This one is still being built.</p>
+          </div>
         )}
       </div>
     </article>
