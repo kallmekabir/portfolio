@@ -1,0 +1,153 @@
+/* ---------- Hero (inside the green band) ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+  gap: var(--space-8) var(--space-16);
+  align-items: end;
+}
+
+.heroCopy {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.name {
+  margin: 0;
+  font-size: clamp(3.4rem, 11vw, 7rem); /* grows with the screen, within limits */
+  line-height: 0.9;
+}
+
+.role {
+  margin: 0;
+  max-width: 30ch;
+  font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+  font-weight: 600;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.bio {
+  margin: 0;
+  max-width: 54ch;
+  color: var(--band-text-muted);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px; /* comfortable tap target */
+  padding: 0 var(--space-6);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+.primary {
+  composes: button;
+  background: var(--band-accent);
+  color: var(--band-on-accent);
+}
+
+.secondary {
+  composes: button;
+  border-color: var(--band-text);
+  color: var(--band-text);
+}
+
+.quiet {
+  composes: button;
+  padding-inline: var(--space-2);
+  color: var(--band-text);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (hover: hover) {
+  .primary:hover,
+  .secondary:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* "Now building": the one small chess detail in the hero */
+.now {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+  padding: var(--space-4);
+  border: 1px solid var(--band-border);
+  border-radius: var(--radius-md);
+  background: var(--band-surface);
+}
+
+/* A 4x4 board: each 50% tile of the conic gradient paints 2x2 squares */
+.miniBoard {
+  width: 52px;
+  aspect-ratio: 1;
+  border: 3px solid var(--band-accent);
+  border-radius: var(--radius-sm);
+  background: repeating-conic-gradient(var(--band-accent) 0 25%, transparent 0 50%) 0 0 / 50% 50%;
+}
+
+.nowHeading {
+  margin: 0 0 var(--space-1);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 600;
+  letter-spacing: normal;
+}
+
+.nowText {
+  margin: 0;
+  color: var(--band-text-muted);
+  font-size: 0.95rem;
+}
+
+/* ---------- Projects: the hand of cards ---------- */
+.projects {
+  padding-top: var(--space-8);
+  scroll-margin-top: var(--space-4); /* a little breathing room when "View projects" scrolls here */
+  /* Tilted cards near the edge must never make the page scroll sideways.
+     `clip` (unlike `hidden`) cuts off only the x direction, so a card lifted
+     upward out of the hand still shows in full. */
+  overflow-x: clip;
+}
+
+.projectsHeading {
+  margin: 0 0 var(--space-3);
+  font-size: clamp(2.4rem, 6vw, 3.4rem);
+}
+
+.projectsIntro {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+  text-wrap: pretty; /* avoids a lonely last word on its own line */
+}
+
+/* Centers the hand under the intro. The padding is the hand's breathing room,
+   and the top part also leaves space for a card pulled up on hover.
+   The hand sets its own width and height, so nothing here sizes it. */
+.handArea {
+  display: grid;
+  justify-items: center;
+  padding-block: clamp(var(--space-12), 8vw, var(--space-16));
+}
+
+@media (max-width: 760px) {
+  .hero {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+}

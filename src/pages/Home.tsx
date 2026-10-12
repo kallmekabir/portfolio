@@ -1,26 +1,48 @@
 import { Link } from 'react-router';
+import Band from '../components/Band';
+import ProjectHand from '../components/hand/ProjectHand';
 import { profile } from '../content/links';
 import { projects } from '../projects/registry';
+import styles from './Home.module.css';
 
-// M3 replaces this plain list with category cards that expand into a
-// full-screen stage. For now it just proves the registry drives the page.
 export default function Home() {
   return (
     <>
-      <section>
-        <h1>Hi, I'm {profile.name.split(' ')[0]}.</h1>
-        <p>{profile.tagline}</p>
-      </section>
+      <Band size="tall" labelledBy="hero-name">
+        <div className={styles.hero}>
+          <div className={styles.heroCopy}>
+            <h1 id="hero-name" className={styles.name}>{profile.name}</h1>
+            <p className={styles.role}>{profile.tagline}</p>
+            <p className={styles.bio}>{profile.bio}</p>
+            <div className={styles.ctas}>
+              <a className={styles.primary} href="#projects">View projects</a>
+              <Link className={styles.secondary} to="/resume">Resume</Link>
+              {/* links.ts uses '' for "not added yet". An empty string is falsy, so
+                  `&&` stops there and React renders nothing instead of a dead link. */}
+              {profile.linkedin && (
+                <a className={styles.quiet} href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+              )}
+            </div>
+          </div>
+          <aside className={styles.now} aria-labelledby="now-heading">
+            <div className={styles.miniBoard} aria-hidden="true" />
+            <div>
+              <h2 id="now-heading" className={styles.nowHeading}>Now building</h2>
+              <p className={styles.nowText}>{profile.nowBuilding}</p>
+            </div>
+          </aside>
+        </div>
+      </Band>
 
-      <section aria-labelledby="projects-heading">
-        <h2 id="projects-heading">Projects</h2>
-        <ul>
-          {projects.map((p) => (
-            <li key={p.slug}>
-              <Link to={`/projects/${p.slug}`}>{p.title}</Link>: {p.summary}
-            </li>
-          ))}
-        </ul>
+      <section id="projects" className={`container ${styles.projects}`} aria-labelledby="projects-heading">
+        <h2 id="projects-heading" className={styles.projectsHeading}>Projects</h2>
+        <p className={styles.projectsIntro}>
+          Pick a card, any card. Each one opens a project you can play or try out in your browser.
+        </p>
+        {/* The wrapper only centers the hand and gives it room; the hand sizes itself. */}
+        <div className={styles.handArea}>
+          <ProjectHand projects={projects} />
+        </div>
       </section>
     </>
   );

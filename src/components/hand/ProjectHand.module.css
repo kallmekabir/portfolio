@@ -1,0 +1,51 @@
+/* The hand: a <ul> with one <li> "slot" per card. Motion moves the slot (the
+   deal) and the .lift layer inside it (the hover pull); the card face itself
+   never animates. */
+.hand {
+  --card-w: clamp(15rem, 22vw, 17.5rem);
+  --card-h: calc(var(--card-w) * 370 / 300); /* same ratio as the card face */
+  width: 100%; /* never shrink to fit: on desktop all cards share one grid cell */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.slot {
+  width: var(--card-w);
+}
+
+/* ---------- Desktop: one fanned hand ---------- */
+.fan {
+  display: grid;
+  place-items: end center; /* every card's bottom edge on one line, centered */
+  /* Transforms take up no layout space, so reserve it by hand (about 1.3x the
+     card height in total): room above for a pulled card, room below for the
+     outer cards dipping down at the ends of the arc. */
+  padding-block: calc(var(--card-h) * 0.14) calc(var(--card-h) * 0.18);
+}
+
+.fan > .slot {
+  grid-area: 1 / 1; /* every card in the same cell, like a deck */
+}
+
+/* Rotate around a point well below the cards (where the hand holding them
+   would be), so rotation spreads them along an arc. The pull layer uses the
+   same pivot, which is what lets its rotation cancel the slot's exactly. */
+.fan > .slot,
+.lift {
+  transform-origin: 50% 140%;
+}
+
+/* ---------- Phones: a column ---------- */
+.column {
+  --card-w: min(100%, 17.5rem); /* a phone has room for the full-size card */
+  display: grid;
+  justify-items: center;
+}
+
+/* The space between rows is padding inside each slot rather than `gap`. That
+   way one row = exactly one slot's height, so translateY(-100%) moves a card
+   up exactly one row (the deck pose in ProjectHand.tsx relies on this). */
+.column > .slot {
+  padding-bottom: var(--space-6);
+}

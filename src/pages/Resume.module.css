@@ -1,0 +1,51 @@
+.actions {
+  display: flex;
+  flex-wrap: wrap; /* on a narrow phone the buttons drop to a new line instead of squeezing */
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+  /* Room for the keyboard focus ring: without it, the ring's top edge would
+     slip under the green band right above (the band is painted on top). */
+  padding-top: var(--space-2);
+}
+
+/* Pill buttons, the same shape as the homepage hero buttons. Those sit on the green
+   band and use --band-* colors; these sit on the page, so they use --color-* tokens,
+   which flip automatically between the light and dark themes. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px; /* comfortable tap target */
+  padding: 0 var(--space-6);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+/* `composes` copies .button's rules into .primary, a bit like `extends` in Java */
+.primary {
+  composes: button;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.secondary {
+  composes: button;
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* Only on devices with a real mouse, so a tap on a phone doesn't leave a button lifted */
+@media (hover: hover) {
+  .primary:hover,
+  .secondary:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.note {
+  margin: 0;
+  color: var(--color-text-muted);
+}

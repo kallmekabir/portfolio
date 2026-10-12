@@ -6,6 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kabir Khan · Portfolio</title>
     <meta name="description" content="Kabir Khan, software engineer: interactive projects, resume, and more." />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#173d31" />
+    <!-- Start downloading both fonts right away; the hero name uses Big Shoulders. -->
+    <link rel="preload" href="/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/big-shoulders-display-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      // Runs before the page is painted: apply a saved light/dark choice now,
+      // so visitors never see a flash of the wrong theme. (Same key as src/lib/theme.ts.)
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
+      } catch (e) {
+        // Storage can be blocked (private mode); the site then follows the OS setting.
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

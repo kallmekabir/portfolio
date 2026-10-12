@@ -3,21 +3,51 @@
   Components reference these with var(--name) instead of hard-coding values,
   so changing the whole look later means editing only this file.
 
-  DRAFT VALUES: we choose the real palette and fonts together in M1.
+  Theme: "Evergreen" (Game Night, professional). Felt green + brass.
+
+  How light/dark works (three states):
+  1. No choice saved ("system"): <html> has no data-theme, so the
+     @media (prefers-color-scheme: dark) block decides from the OS setting.
+  2. Visitor picked light: <html data-theme="light">. The :not() guard
+     below stops the OS dark setting from overriding that choice.
+  3. Visitor picked dark: <html data-theme="dark"> applies the dark values.
+  The dark values appear twice (media query + attribute) on purpose, so the
+  toggle wins in both directions.
 */
 :root {
-  /* Color: deliberately neutral placeholders until M1 */
-  --color-bg: #fafaf9;
-  --color-surface: #ffffff;
-  --color-text: #1c1917;
-  --color-text-muted: #57534e;
-  --color-border: #e7e5e4;
-  --color-accent: #2563eb;
-  --color-focus: #2563eb;
+  /* Page colors: light */
+  --color-bg: #eef2ee;
+  --color-surface: #fbfcfa;
+  --color-text: #13261e;
+  --color-text-muted: #4a5c53;
+  --color-border: #cbd6cf;
+  --color-accent: #1f5a45;
+  --color-on-accent: #ffffff; /* text on top of --color-accent */
+  --color-highlight: #9a6c12; /* brass, darkened so it reads on light paper */
+  --color-focus: #1f5a45;
+  --color-box-base: #13261e; /* the inside of a game box, seen when a card's lid lifts */
+  --shadow-rgb: 18 28 38; /* used as rgb(var(--shadow-rgb) / 0.2) */
 
-  /* Type: system fonts for now (zero download cost) */
-  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: var(--font-body);
+  /* Category colors: the "spine" of each game-box card. White text on all of them passes 4.5:1. */
+  --color-cat-games: #a8322b;
+  --color-cat-algorithms: #2c5a86;
+  --color-cat-experiments: #5b4a8a;
+  --color-on-cat: #ffffff;
+
+  /* The deep green band at the top of every page (same in both modes) */
+  --band-bg: #173d31;
+  --band-text: #f1ebdd;
+  --band-text-muted: #c8d5cb;
+  --band-accent: #e2b04a; /* brass */
+  --band-on-accent: #12261f;
+  --band-border: rgb(241 235 221 / 0.28);
+  --band-surface: rgb(241 235 221 / 0.06);
+  --band-glow-rgb: 255 232 180; /* warm lamp light */
+  --band-glow-2-rgb: 226 176 74; /* brass light */
+
+  /* Type: Figtree for reading, Big Shoulders Display for big moments */
+  --font-body: 'Figtree', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Big Shoulders Display', 'Arial Narrow', Impact, sans-serif;
 
   /* Type scale: each step is 1.25x the previous (a "major third" scale) */
   --text-sm: 0.875rem;
@@ -36,15 +66,56 @@
   --space-8: 2rem;
   --space-12: 3rem;
   --space-16: 4rem;
+  --gutter: clamp(1rem, 4vw, 2.5rem); /* side padding of every page */
 
   /* Shape and layout */
   --radius-sm: 6px;
-  --radius-md: 12px;
+  --radius-md: 14px;
+  --radius-pill: 999px;
   --content-max: 72rem;
   --prose-max: 65ch; /* comfortable reading line length */
 
-  /* Motion */
+  /* Motion (spring presets for JS animations live in motion.ts) */
   --duration-fast: 150ms;
   --duration-base: 250ms;
+  --duration-hover: 460ms;
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+  /* Goes past 1 in the middle, so the motion overshoots a little and settles back,
+     like a spring. This is what makes the card hover feel "lively". */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-bg: #0f1f19;
+    --color-surface: #172d25;
+    --color-text: #ecefe6;
+    --color-text-muted: #a9bcb1;
+    --color-border: #2a4339;
+    --color-accent: #e2b04a;
+    --color-on-accent: #12261f;
+    --color-highlight: #e2b04a;
+    --color-focus: #e2b04a;
+    --color-box-base: #05080a;
+    --shadow-rgb: 0 0 0;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --color-bg: #0f1f19;
+  --color-surface: #172d25;
+  --color-text: #ecefe6;
+  --color-text-muted: #a9bcb1;
+  --color-border: #2a4339;
+  --color-accent: #e2b04a;
+  --color-on-accent: #12261f;
+  --color-highlight: #e2b04a;
+  --color-focus: #e2b04a;
+  --color-box-base: #05080a;
+  --shadow-rgb: 0 0 0;
+  color-scheme: dark;
 }
