@@ -1,0 +1,87 @@
+/* Front of a card, in its category's color (--cat comes from data-category).
+   The shape comes from face.module.css. Three rows pushed apart: top corner,
+   middle text, bottom corner. */
+.card {
+  padding: var(--space-6);
+  justify-content: space-between;
+  gap: var(--space-3);
+  background: var(--cat, var(--color-cat-experiments));
+  color: var(--color-on-cat);
+  text-decoration: none;
+}
+
+.card:focus-visible {
+  outline-offset: 4px; /* the ring sits clear of the card's edge */
+}
+
+.corner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+/* `scale: -1` flips both axes at once: the same as turning it 180 degrees */
+.mirrored {
+  scale: -1;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.005em;
+  text-wrap: balance;
+}
+
+/* Centers the 20px icon on the title's first line */
+.icon {
+  flex: none;
+  margin-top: calc((1.9rem - 20px) / 2);
+}
+
+.middle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.tech {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  opacity: 0.85; /* a step quieter than the summary, still above 4.5:1 contrast */
+}
+
+.summary {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+/* Live: a solid white pill with text in the card's own color */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  margin-top: var(--space-1);
+  padding: 0 var(--space-4);
+  border: 1.5px solid var(--color-on-cat);
+  border-radius: var(--radius-pill);
+  background: var(--color-on-cat);
+  color: var(--cat, var(--color-cat-experiments));
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+/* Soon: an empty dashed outline. `composes` copies .chip, then we override. */
+.chipSoon {
+  composes: chip;
+  border-style: dashed;
+  background: transparent;
+  color: var(--color-on-cat);
+}
