@@ -1,7 +1,7 @@
 /*
   Three layers, stacked with z-index:
     0  .light        the drifting lamp light
-    1  .band::after  the fade from green into the page background
+    1  .band::after  the fade from teal into the page background
     2  .inner        the actual content
   `isolation: isolate` keeps those z-indexes contained inside the band.
 */
@@ -11,10 +11,10 @@
   overflow: clip; /* the big light circles must never cause sideways scrolling */
   background: var(--band-bg);
   color: var(--band-text);
-  --color-focus: var(--band-accent); /* a green focus ring would vanish on green */
+  --color-focus: var(--band-accent); /* a teal focus ring would vanish on teal */
 }
 
-/* Plain links in the band take the band's text color (green links would vanish on green).
+/* Plain links in the band take the band's text color (teal links would vanish on teal).
    :not([class]) skips links that have their own class, like the hero buttons. */
 .band a:not([class]) {
   color: inherit;
@@ -74,13 +74,13 @@
 .light::before {
   left: -20vmax;
   top: -15vmax;
-  background: radial-gradient(closest-side, rgb(var(--band-glow-rgb) / 0.07), transparent);
+  background: radial-gradient(closest-side, rgb(var(--band-glow-rgb) / 0.04), transparent);
 }
 
 .light::after {
   right: -30vmax;
   top: 5%;
-  background: radial-gradient(closest-side, rgb(var(--band-glow-2-rgb) / 0.05), transparent);
+  background: radial-gradient(closest-side, rgb(var(--band-glow-2-rgb) / 0.03), transparent);
   animation-duration: 36s;
   animation-direction: alternate-reverse;
 }
@@ -94,7 +94,7 @@
   }
 }
 
-/* ---- The fade from green into the page ----
+/* ---- The fade from teal into the page ----
    Several stops instead of two make it ease out gently rather than look like a hard stripe. */
 .band::after {
   content: '';
@@ -107,10 +107,10 @@
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    color-mix(in srgb, var(--color-bg) 15%, transparent) 30%,
-    color-mix(in srgb, var(--color-bg) 50%, transparent) 60%,
-    color-mix(in srgb, var(--color-bg) 85%, transparent) 85%,
-    var(--color-bg) 100%
+    color-mix(in srgb, var(--page-bg, var(--color-bg)) 15%, transparent) 30%,
+    color-mix(in srgb, var(--page-bg, var(--color-bg)) 50%, transparent) 60%,
+    color-mix(in srgb, var(--page-bg, var(--color-bg)) 85%, transparent) 85%,
+    var(--page-bg, var(--color-bg)) 100%
   );
 }
 

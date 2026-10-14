@@ -13,7 +13,7 @@ export default function CardBack() {
   return (
     <div className={`${face.face} ${styles.back}`} role="img" aria-label="Next project, coming soon">
       <div className={styles.frame}>
-        {/* The tiled brass pixels. The 8x8 tile holds two 2x2 "pixels" on a
+        {/* The tiled peach pixels. The 8x8 tile holds two 2x2 "pixels" on a
             diagonal, which repeats into a fine diamond lattice. */}
         <svg className={styles.pattern} fill="currentColor" aria-hidden="true" focusable="false">
           <defs>

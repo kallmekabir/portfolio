@@ -4,6 +4,7 @@ import type { LenisOptions } from 'lenis';
 import { ReactLenis } from 'lenis/react';
 import 'lenis/dist/lenis.css';
 import { profile } from '../content/links';
+import ScrollTone from './ScrollTone';
 import ThemeToggle from './ThemeToggle';
 import styles from './Layout.module.css';
 
@@ -48,7 +49,7 @@ export default function Layout() {
         Skip to content
       </a>
 
-      {/* Full-width header in band green. The inner .container keeps its
+      {/* Full-width header in band teal. The inner .container keeps its
           content lined up with the page content below. */}
       <header className={styles.header}>
         <div className={`container ${styles.headerInner}`}>
@@ -77,7 +78,8 @@ export default function Layout() {
         </LazyMotion>
       </main>
 
-      <footer className={styles.footer}>
+      {/* data-tone: the page background blends to sea glass as the footer arrives (ScrollTone) */}
+      <footer className={styles.footer} data-tone="sea">
         <div className={`container ${styles.footerInner}`}>
           <p className={styles.copyright}>© {year} {profile.name}</p>
           {/* An empty string in links.ts means "not available", and '' is falsy,
@@ -102,6 +104,7 @@ export default function Layout() {
         </div>
       </footer>
       <ScrollRestoration />
+      <ScrollTone />
     </div>
   );
 }

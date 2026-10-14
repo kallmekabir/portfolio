@@ -9,6 +9,10 @@
   width: 100%; /* the hand decides how wide a card is */
   aspect-ratio: 300 / 370;
   border-radius: 1.25rem;
+  /* A thin edge in dark mode (--card-ring is transparent in light), so a teal card
+     stays distinct on the dark teal page. Drawn inside the card with a negative offset. */
+  outline: 1px solid var(--card-ring);
+  outline-offset: -1px;
   box-shadow:
     0 1px 2px rgb(var(--shadow-rgb) / 0.14),
     0 14px 28px -16px rgb(var(--shadow-rgb) / 0.5);

@@ -10,7 +10,7 @@
   border-top: 1px solid var(--color-border);
 }
 
-/* The band's fade already separates the first row from the green, so no line there */
+/* The band's fade already separates the first row from the teal, so no line there */
 .section:first-child {
   padding-top: 0;
   border-top: none;

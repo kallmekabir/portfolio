@@ -1,13 +1,13 @@
-/* Felt green with brass details: the band colors, which are the same in light
+/* Deep teal with peach details: the band colors, which are the same in light
    and dark mode, so the back looks identical in both themes. The shape comes
    from face.module.css. */
 .back {
-  padding: var(--space-3); /* the plain felt margin around the inner frame */
+  padding: var(--space-3); /* the plain teal margin around the inner frame */
   background: var(--band-bg);
   color: var(--band-accent); /* currentColor for the pattern, frame and "?" */
 }
 
-/* A thin light edge, so the green card stays visible on the dark page */
+/* A thin light edge, so the teal card stays visible on the dark page */
 .back::before {
   content: '';
   position: absolute;
@@ -35,7 +35,7 @@
   opacity: 0.3; /* a texture, not a feature */
 }
 
-/* A solid felt plate behind the "?", so the pattern doesn't run through it */
+/* A solid teal plate behind the "?", so the pattern doesn't run through it */
 .emblem {
   position: relative; /* paints above the absolutely positioned pattern */
   display: grid;
