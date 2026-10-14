@@ -1,0 +1,124 @@
+/* A small playing card holding the headshot. Sits on the teal band, so it uses --band-* colors. */
+.link {
+  display: block;
+  width: 9.5rem;
+  border-radius: var(--radius-md);
+  color: inherit;
+  text-decoration: none;
+}
+
+.link:focus-visible {
+  outline-offset: 5px;
+}
+
+.card {
+  position: relative;
+  aspect-ratio: 3 / 4; /* fixed shape: nothing inside can make it grow */
+  padding: 5px; /* the card's ice border around the photo */
+  border-radius: var(--radius-md);
+  background: var(--band-text);
+  box-shadow: 0 16px 30px -16px rgb(0 0 0 / 0.45);
+  transform-origin: 50% 90%; /* wobble from near the bottom, like a card held at its base */
+}
+
+.photo {
+  height: 100%;
+  overflow: hidden;
+  border-radius: calc(var(--radius-md) - 5px);
+  background: var(--band-bg);
+}
+
+.photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* fills the card, cropping the edges instead of stretching */
+}
+
+/* Placeholder until the real photo is added (profile.headshot in content/links.ts) */
+.monogram {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--band-accent);
+}
+
+.pip {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background: var(--band-text);
+  color: var(--band-bg);
+}
+
+.pipTop {
+  top: 10px;
+  left: 10px;
+}
+
+.pipBottom {
+  right: 10px;
+  bottom: 10px;
+  scale: -1; /* upside down, like the bottom corner of a playing card */
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.frame rect {
+  fill: none;
+  stroke: var(--color-highlight); /* salmon */
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+/* overflow: hidden is the trick: the tag starts below this box's bottom edge (invisible)
+   and slides up into it, so the card's size never changes */
+.tagClip {
+  position: absolute;
+  inset: auto 5px 5px;
+  z-index: 3;
+  overflow: hidden;
+  border-radius: 0 0 calc(var(--radius-md) - 5px) calc(var(--radius-md) - 5px);
+}
+
+.tag {
+  display: grid;
+  gap: 1px;
+  padding: var(--space-2) var(--space-3);
+  background: rgb(11 42 46 / 0.88); /* ink, slightly see-through: ice text on it is about 12:1 */
+  color: var(--band-text);
+}
+
+.tagName {
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.tagRole {
+  font-size: 0.72rem;
+  line-height: 1.2;
+  color: var(--band-text-muted);
+}
+
+@media (max-width: 760px) {
+  .link {
+    width: 7rem;
+  }
+}

@@ -14,7 +14,9 @@ html {
 
 body {
   margin: 0;
-  background: var(--color-bg);
+  /* --page-bg is set by ScrollTone as you scroll; before it runs (or with reduced
+     motion) the plain page color shows. */
+  background: var(--page-bg, var(--color-bg));
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: var(--text-base);
@@ -50,7 +52,7 @@ img {
 }
 
 /* Centers content and adds side padding. Pages use it inside full-width
-   sections, so a background (like the green band) can still run edge to edge. */
+   sections, so a background (like the teal band) can still run edge to edge. */
 .container {
   width: 100%;
   max-width: var(--content-max);
@@ -61,12 +63,29 @@ img {
 /* Category colors: any element with data-category="games" (etc.) gets --cat */
 [data-category='games'] {
   --cat: var(--color-cat-games);
+  --color-on-cat: var(--color-on-cat-games);
 }
 [data-category='algorithms'] {
   --cat: var(--color-cat-algorithms);
+  --color-on-cat: var(--color-on-cat-algorithms);
 }
 [data-category='experiments'] {
   --cat: var(--color-cat-experiments);
+  --color-on-cat: var(--color-on-cat-experiments);
+}
+
+/* Section tones without the scroll blend (reduced motion): each toned section
+   simply paints its own color. ScrollTone handles everyone else. */
+@media (prefers-reduced-motion: reduce) {
+  [data-tone='ice'] {
+    background: var(--tone-ice);
+  }
+  [data-tone='peach'] {
+    background: var(--tone-peach);
+  }
+  [data-tone='sea'] {
+    background: var(--tone-sea);
+  }
 }
 
 /* Visible keyboard focus everywhere (accessibility) */

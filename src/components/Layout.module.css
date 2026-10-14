@@ -22,11 +22,11 @@
   top: var(--space-4);
 }
 
-/* ---------- Header: sits on the green band ---------- */
+/* ---------- Header: sits on the teal band ---------- */
 .header {
   background: var(--band-bg);
   color: var(--band-text);
-  --color-focus: var(--band-accent); /* green-on-green focus rings would be invisible */
+  --color-focus: var(--band-accent); /* teal-on-teal focus rings would be invisible */
 }
 
 .headerInner {

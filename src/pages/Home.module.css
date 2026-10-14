@@ -1,7 +1,7 @@
-/* ---------- Hero (inside the green band) ---------- */
+/* ---------- Hero (inside the teal band) ---------- */
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: var(--space-8) var(--space-16);
   align-items: end;
 }
@@ -79,39 +79,35 @@
   }
 }
 
-/* "Now building": the one small chess detail in the hero */
+/* "Now building": a single quiet line under the buttons */
 .now {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: var(--space-4);
-  align-items: start;
-  padding: var(--space-4);
-  border: 1px solid var(--band-border);
-  border-radius: var(--radius-md);
-  background: var(--band-surface);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-2) 0 0;
+  color: var(--band-text-muted);
+  font-size: 0.95rem;
+}
+
+.now strong {
+  color: var(--band-text);
+  font-weight: 600;
 }
 
 /* A 4x4 board: each 50% tile of the conic gradient paints 2x2 squares */
 .miniBoard {
-  width: 52px;
+  flex: none;
+  width: 28px;
   aspect-ratio: 1;
-  border: 3px solid var(--band-accent);
-  border-radius: var(--radius-sm);
+  border: 2px solid var(--band-accent);
+  border-radius: 4px;
   background: repeating-conic-gradient(var(--band-accent) 0 25%, transparent 0 50%) 0 0 / 50% 50%;
 }
 
-.nowHeading {
-  margin: 0 0 var(--space-1);
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  font-weight: 600;
-  letter-spacing: normal;
-}
-
-.nowText {
-  margin: 0;
-  color: var(--band-text-muted);
-  font-size: 0.95rem;
+/* The headshot card's slot: top-right of the hero */
+.headshot {
+  align-self: start;
+  justify-self: end;
 }
 
 /* ---------- Projects: the hand of cards ---------- */
@@ -145,9 +141,40 @@
   padding-block: clamp(var(--space-12), 8vw, var(--space-16));
 }
 
+/* ---------- About strip: the peach part of the page ---------- */
+.aboutStrip {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  padding-block: clamp(var(--space-16), 12vw, 8rem);
+}
+
+.aboutHeading {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+}
+
+.aboutText {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+}
+
+/* Teal on peach is 4.8:1, so it works as link text here */
+.aboutLink {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-underline-offset: 4px;
+}
+
 @media (max-width: 760px) {
   .hero {
     grid-template-columns: 1fr;
     align-items: start;
+  }
+  /* On phones the headshot comes first, above the name */
+  .headshot {
+    order: -1;
+    justify-self: start;
   }
 }

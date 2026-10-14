@@ -4,11 +4,11 @@
   align-items: center;
   gap: var(--space-3) var(--space-4);
   /* Room for the keyboard focus ring: without it, the ring's top edge would
-     slip under the green band right above (the band is painted on top). */
+     slip under the teal band right above (the band is painted on top). */
   padding-top: var(--space-2);
 }
 
-/* Pill buttons, the same shape as the homepage hero buttons. Those sit on the green
+/* Pill buttons, the same shape as the homepage hero buttons. Those sit on the teal
    band and use --band-* colors; these sit on the page, so they use --color-* tokens,
    which flip automatically between the light and dark themes. */
 .button {
